@@ -18,4 +18,10 @@ class apb_seq_item extends uvm_sequence_item;
 
     apb_rsp_t       apb_resp;
 
+    // ------------------------------------------ //
+    // Fields to be used by Monitor               //
+    // ------------------------------------------ //
+
+    bit protocol_error;
+
 endclass

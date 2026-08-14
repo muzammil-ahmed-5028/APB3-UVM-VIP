@@ -11,7 +11,7 @@ class apb_base_driver #(
     endfunction
 
     virtual function void build_phase(uvm_phase phase);
-        super.build_phase(uvm_phase phase);
+        super.build_phase(phase);
 
         if (vif == null) begin
            `uvm_fatal("NO_APB_VIF","No valid APB VIF passed to driver") 

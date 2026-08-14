@@ -1,6 +1,6 @@
 interface apb_intf#(
-    parameter DATA_WIDTH=32
     parameter ADDRESS_WIDTH=64
+    parameter DATA_WIDTH=32
 );
 
     logic                       PCLK,
@@ -17,11 +17,19 @@ interface apb_intf#(
 endinterface
 
 package apb_vip_pkg;
-    
+    import uvm_pkg::*
+    `include "uvm_macros.svh"
+
     typedef enum bit {
         APB_OKAY    = 1'b0,
         APB_SLVERR  = 1'b1
     } apb_rsp_t;
+
+    `include "apb_seq_item"
+    `include "apb_sequencer"
+    `include "apb_master_driver"
+    `include "apb_master_monitor"
+    `include "apb_master_agent"
 
     
 endpackage

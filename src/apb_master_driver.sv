@@ -34,7 +34,7 @@ class apb_master_driver #(
         // APB SETUP PHASE//
         // ---------------//
         
-        vif.PADDR   <=  vif.addr;
+        vif.PADDR   <= txn.addr;
         vif.PWRITE  <= 1'b0; // Read
         vif.PSEL    <= 1'b1; // Setup Phase
         vif.PENABLE <= 1'b0; // Enable not asserted in SETUP Phase
@@ -56,13 +56,13 @@ class apb_master_driver #(
         // set_id_info used to track rsp to correct sequence
         rsp.set_id_info(txn);
         rsp.data        = vif.PRDATA;
-        rsp.apb_resp    = vif.PSLVERR;
+        rsp.apb_resp    = apb_rsp_t'(vif.PSLVERR);
 
         repeat (txn.post_drive_delay_cycles) begin
             @(posedge vif.PCLK);
         end
 
-        if (response_required) 
+        if (txn.response_required) 
             seq_item_port.item_done(rsp);
         else
             seq_item_port.item_done();
@@ -101,9 +101,9 @@ class apb_master_driver #(
 
         // set_id_info used to track rsp to correct sequence
         rsp.set_id_info(txn);
-        rsp.apb_resp    = vif.PSLVERR;
+        rsp.apb_resp    = apb_rsp_t'(vif.PSLVERR);
 
-        if (response_required) 
+        if (txn.response_required) 
             seq_item_port.item_done(rsp);
         else
             seq_item_port.item_done();

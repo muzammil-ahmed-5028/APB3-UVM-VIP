@@ -34,7 +34,7 @@ class apb_master_driver #(
         // APB SETUP PHASE//
         // ---------------//
         
-        vif.PADDR   <= txn.addr;
+        vif.PADDR   <= txn.addr[APB_ADDR_WIDTH-1:0];
         vif.PWRITE  <= 1'b0; // Read
         vif.PSEL    <= 1'b1; // Setup Phase
         vif.PENABLE <= 1'b0; // Enable not asserted in SETUP Phase
@@ -55,7 +55,7 @@ class apb_master_driver #(
 
         // set_id_info used to track rsp to correct sequence
         rsp.set_id_info(txn);
-        rsp.data        = vif.PRDATA;
+        rsp.data[APB_DATA_WIDTH-1:0] = vif.PRDATA;
         rsp.apb_resp    = apb_rsp_t'(vif.PSLVERR);
 
         repeat (txn.post_drive_delay_cycles) begin
@@ -79,9 +79,9 @@ class apb_master_driver #(
         // APB SETUP PHASE//
         // ---------------//
         
-        vif.PADDR   <= txn.addr;
+        vif.PADDR   <= txn.addr[APB_ADDR_WIDTH-1:0];
         vif.PWRITE  <= 1'b1; // Write
-        vif.PWDATA  <= txn.data;
+        vif.PWDATA  <= txn.data[APB_DATA_WIDTH-1:0];
         vif.PSEL    <= 1'b1; // Setup Phase
         vif.PENABLE <= 1'b0; // Enable not asserted in SETUP Phase
         

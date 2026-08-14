@@ -19,9 +19,9 @@ class apb_master_monitor #(
             
             wait (vif.PSEL && vif.PENABLE && vif.PREADY);
             
-            item.addr       = vif.PADDR;
-            item.apb_resp   = apb_rsp_t'(vif.PSLVERR);
-            item.data       = (vif.PWRITE == 1'b1) ? vif.PWDATA : vif.PRDATA;
+            item.addr[APB_ADDR_WIDTH-1:0]       = vif.PADDR;
+            item.apb_resp   			= apb_rsp_t'(vif.PSLVERR);
+            item.data[APB_DATA_WIDTH-1:0]       = (vif.PWRITE == 1'b1) ? vif.PWDATA : vif.PRDATA;
             item_observed_port.write(item);
 
         end

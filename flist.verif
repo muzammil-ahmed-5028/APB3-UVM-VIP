@@ -1,4 +1,2 @@
-+incdir+src
-+incdir+$UVM_HOME
-$UVM_HOME/uvm_pkg.sv
++incdir+src/agent
 src/apb_vip_pkg.sv

@@ -25,6 +25,7 @@ class apb_master_monitor #(
             item.data[APB_DATA_WIDTH-1:0]       = (vif.PWRITE == 1'b1) ? vif.PWDATA : vif.PRDATA;
             item_observed_port.write(item);
 
+            @(posedge vif.PCLK);
         end
 
     endtask

@@ -3,12 +3,16 @@ class apb_master_driver #(
     parameter APB_DATA_WIDTH = 32
 ) extends apb_base_driver #(APB_ADDR_WIDTH, APB_DATA_WIDTH);
     `uvm_component_param_utils(apb_master_driver #(APB_ADDR_WIDTH, APB_DATA_WIDTH))
-    
+
+    apb_seq_item rsp;
+            
     function new(string name="apb_master_driver",uvm_component parent);
         super.new(name,parent);
     endfunction
 
     virtual task run_phase(uvm_phase phase);
+        
+        rsp = apb_seq_item::type_id::create("rsp");
         
         // Wait for one cycle before starting transactions
         

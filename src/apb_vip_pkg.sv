@@ -25,14 +25,14 @@ package apb_vip_pkg;
         APB_SLVERR  = 1'b1
     } apb_rsp_t;
 
-    `include "apb_seq_item.sv"
-    `include "apb_sequencer.sv"
-    `include "apb_base_driver.sv"
-    `include "apb_master_driver.sv"
-    `include "apb_base_monitor.sv"
-    `include "apb_master_monitor.sv"
-    `include "apb_master_agent.sv"
-    `include "apb_write_read_seq.sv"
+    `include "agent/apb_seq_item.sv"
+    `include "agent/apb_sequencer.sv"
+    `include "agent/apb_base_driver.sv"
+    `include "agent/apb_master_driver.sv"
+    `include "agent/apb_base_monitor.sv"
+    `include "agent/apb_master_monitor.sv"
+    `include "agent/apb_master_agent.sv"
+    `include "sequences/apb_write_read_seq.sv"
 
     
 endpackage

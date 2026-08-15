@@ -1,3 +1,2 @@
-+incdir+src/agent
-+incdir+src/sequences
++incdir+include
 src/apb_vip_pkg.sv

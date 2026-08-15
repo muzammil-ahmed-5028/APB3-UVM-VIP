@@ -8,6 +8,7 @@ class apb_master_monitor #(
 
     function new(string name="apb_master_monitor",uvm_component parent);
         super.new(name,parent);
+        item_observed_port = new("item_observed_port",this);
     endfunction
 
     virtual task run_phase(uvm_phase phase);

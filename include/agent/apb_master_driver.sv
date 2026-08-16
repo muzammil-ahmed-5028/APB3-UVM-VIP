@@ -59,8 +59,15 @@ class apb_master_driver #(
 
         // set_id_info used to track rsp to correct sequence
         rsp.set_id_info(txn);
-        rsp.data[APB_DATA_WIDTH-1:0] = vif.PRDATA;
-        rsp.apb_resp    = apb_rsp_t'(vif.PSLVERR);
+        rsp.direction                   = 1'b0;
+        rsp.addr                        = vif.PADDR;
+        rsp.data                        = '0;
+        rsp.data[APB_DATA_WIDTH-1:0]    = vif.PRDATA;
+        rsp.apb_resp                    = apb_rsp_t'(vif.PSLVERR);
+        rsp.response_required           = txn.response_required;
+
+        vif.PSEL    <= '0;
+        vif.PENABLE <= '0;
 
         repeat (txn.post_drive_delay_cycles) begin
             @(posedge vif.PCLK);
@@ -104,8 +111,19 @@ class apb_master_driver #(
         end while (vif.PREADY == 1'b0);
 
         // set_id_info used to track rsp to correct sequence
-        rsp.set_id_info(txn);
-        rsp.apb_resp    = apb_rsp_t'(vif.PSLVERR);
+        rsp.direction                   = 1'b1;
+        rsp.addr                        = vif.PADDR;
+        rsp.data                        = '0;
+        rsp.data[APB_DATA_WIDTH-1:0]    = vif.PWDATA;
+        rsp.apb_resp                    = apb_rsp_t'(vif.PSLVERR);
+        rsp.response_required           = txn.response_required;
+
+        vif.PENABLE <= '0;
+        vif.PSEL    <= '0;
+        
+        repeat (txn.post_drive_delay_cycles) begin
+            @(posedge vif.PCLK);
+        end
 
         if (txn.response_required) 
             seq_item_port.item_done(rsp);

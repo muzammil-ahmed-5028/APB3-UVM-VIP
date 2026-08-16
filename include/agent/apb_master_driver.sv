@@ -111,6 +111,7 @@ class apb_master_driver #(
         end while (vif.PREADY == 1'b0);
 
         // set_id_info used to track rsp to correct sequence
+        rsp.set_id_info(txn);
         rsp.direction                   = 1'b1;
         rsp.addr                        = vif.PADDR;
         rsp.data                        = '0;

@@ -25,8 +25,9 @@ class apb_master_agent #(
                 `uvm_fatal("NO_APB_MASTER_AGENT_VIF","Unable to recieved Vif in APB Master Agent")
         end
 
-        drv = apb_master_driver     #(APB_ADDR_WIDTH,APB_DATA_WIDTH)::type_id::create("Drv",this);
-        mon = apb_master_monitor    #(APB_ADDR_WIDTH,APB_DATA_WIDTH)::type_id::create("Mon",this);
+        drv     = apb_master_driver     #(APB_ADDR_WIDTH,APB_DATA_WIDTH)::type_id::create("drv",this);
+        mon     = apb_master_monitor    #(APB_ADDR_WIDTH,APB_DATA_WIDTH)::type_id::create("mon",this);
+        seqr    = apb_sequencer::type_id::create("seqr",this);
         
         drv.vif = vif;
         mon.vif = vif;

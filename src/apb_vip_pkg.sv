@@ -32,6 +32,7 @@ package apb_vip_pkg;
     `include "agent/apb_base_monitor.sv"
     `include "agent/apb_master_monitor.sv"
     `include "agent/apb_master_agent.sv"
+    `include "agent/apb_ral_adapter.sv"
     `include "sequences/apb_write_read_seq.sv"
     `include "sequences/apb_custom_seq.sv"
     
